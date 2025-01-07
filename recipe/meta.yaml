@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/membrane_curvature-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/membrane_curvature-{{ version }}.tar.gz
   sha256: 7d72d15fa9616c335cf0b9f3463fb8cdbcb6578249116eb7783d7c0713a4b827
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - setuptools
     - versioningit
     - pip
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - numpy >=1.20.0
     - mdanalysis >=2.0.0
 
@@ -34,6 +34,7 @@ test:
   requires:
     - pip
     - pytest
+    - python {{ python_min }}
   source_files:
     - membrane_curvature/tests
 
